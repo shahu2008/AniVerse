@@ -15,6 +15,11 @@ def get_profile(db: Session, user_id: int):
         .first()
     )
 
+    if user is None:
+        return {
+            "error": f"User with id {user_id} not found"
+        }
+
     favorites = (
         db.query(Favorite)
         .filter(Favorite.user_id == user_id)
