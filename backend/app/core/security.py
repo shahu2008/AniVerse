@@ -22,7 +22,16 @@ pwd_context = CryptContext(
 )
 
 
+from fastapi import HTTPException
+
+
 def hash_password(password: str):
+    if len(password.encode("utf-8")) > 72:
+        raise HTTPException(
+            status_code=400,
+            detail="Password must be 72 bytes or fewer."
+        )
+
     return pwd_context.hash(password)
 
 
@@ -92,5 +101,6 @@ def get_current_user(
             status_code=401,
             detail="User not found"
         )
-
+def hash_password(password: str):
+    return pwd_context.hash(password)
     return user
