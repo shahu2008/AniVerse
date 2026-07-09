@@ -101,6 +101,5 @@ def get_current_user(
             status_code=401,
             detail="User not found"
         )
-def hash_password(password: str):
-    return pwd_context.hash(password)
+
     return user

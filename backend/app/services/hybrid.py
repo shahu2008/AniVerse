@@ -16,12 +16,10 @@ def hybrid_recommendation(
     for anime in get_top_rated_anime(db, limit):
         recommendations[anime.anime_id] = anime
 
-    # Content-Based Similar Anime
-    for anime, _ in get_similar_anime(
-        db,
-        anime_title,
-        limit
-    ):
-        recommendations[anime.anime_id] = anime
-
-    return list(recommendations.values())[:limit]
+   # Content-Based Similar Anime
+for anime, _ in get_similar_anime(
+    db,
+    anime_title,
+    limit
+):
+    recommendations[anime.anime_id] = anime
