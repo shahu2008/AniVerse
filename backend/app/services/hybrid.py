@@ -12,14 +12,25 @@ def hybrid_recommendation(
 ):
     recommendations = {}
 
-    # Popular Anime
-    for anime in get_top_rated_anime(db, limit):
+    # 1. Popular Anime
+    popular_anime = get_top_rated_anime(
+        db,
+        limit
+    )
+
+    for anime in popular_anime:
         recommendations[anime.anime_id] = anime
 
-   # Content-Based Similar Anime
-for anime, _ in get_similar_anime(
-    db,
-    anime_title,
-    limit
-):
-    recommendations[anime.anime_id] = anime
+    # 2. Content-Based Similar Anime
+    similar_anime = get_similar_anime(
+        db,
+        anime_title,
+        limit
+    )
+
+    for item in similar_anime:
+        anime = item["anime"]
+
+        recommendations[anime["anime_id"]] = anime
+
+    return list(recommendations.values())[:limit]
